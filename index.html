@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>zel's — Amar é ter cuidado, zelo.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --salvia:#8BAF8A;
+  --salvia-soft:#AFC9AE;
+  --salvia-mist:#DCE8DB;
+  --verde:#2C3E2D;
+  --verde-deep:#22301F;
+  --cafe:#3D2B1F;
+  --terracota:#C4846A;
+  --creme:#E8C5A0;
+  --areia:#FAF8F5;
+  --ambar:#9B5A42;
+  --salvia-strong:#5F8260;
+  --danger:#B3463A;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'Nunito',-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--areia);
+  color:var(--cafe);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+}
+::selection{background:var(--salvia);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--sans);cursor:pointer;border:none}
+
+/* ---------- PRELOADER ---------- */
+#preloader{
+  position:fixed;inset:0;z-index:1000;
+  background:var(--areia);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:28px;
+}
+#preloader svg{width:140px;height:80px;overflow:visible}
+#preloader .pl-word{
+  font-family:var(--serif);font-size:1.5rem;color:var(--cafe);
+  opacity:0;letter-spacing:.02em;
+}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,5vw,64px);
+  transition:background .4s ease, box-shadow .4s ease, padding .4s ease;
+}
+nav.scrolled{
+  background:rgba(250,248,245,.88);
+  backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 rgba(61,43,31,.07);
+  padding-top:12px;padding-bottom:12px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo svg{width:42px;height:26px}
+.nav-logo span{font-family:var(--sans);font-weight:900;font-size:1.4rem;color:var(--cafe);letter-spacing:-.01em}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-weight:700;font-size:.85rem;color:var(--cafe);opacity:.7;transition:opacity .25s;position:relative}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:-4px;height:2px;width:0;
+  background:var(--salvia);border-radius:2px;transition:width .3s ease;
+}
+.nav-links a:hover{opacity:1}
+.nav-links a:hover::after{width:100%}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--salvia);color:#fff;
+  font-weight:800;font-size:.92rem;
+  padding:13px 26px;border-radius:100px;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1), background .3s, box-shadow .3s;
+  box-shadow:0 4px 14px rgba(139,175,138,.35);
+}
+.btn:hover{transform:translateY(-2px) scale(1.02);background:#7CA17B;box-shadow:0 8px 24px rgba(139,175,138,.45)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--terracota);outline-offset:3px}
+.btn.btn-dark{background:var(--verde);box-shadow:0 4px 14px rgba(44,62,45,.3)}
+.btn.btn-dark:hover{background:var(--verde-deep)}
+.btn.btn-ghost{background:transparent;color:var(--cafe);box-shadow:inset 0 0 0 2px rgba(61,43,31,.18)}
+.btn.btn-ghost:hover{box-shadow:inset 0 0 0 2px var(--salvia);color:var(--salvia)}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;align-items:center;
+  padding:140px clamp(20px,6vw,80px) 80px;
+  overflow:hidden;
+}
+#particles{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:1240px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.78rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--salvia);margin-bottom:26px;
+}
+.hero-eyebrow::before{content:'';width:34px;height:2px;background:var(--salvia);border-radius:2px}
+.hero h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(2.7rem,6.4vw,5.4rem);
+  line-height:1.04;letter-spacing:-.015em;color:var(--cafe);
+}
+.hero h1 em{font-style:italic;color:var(--salvia)}
+.hero h1 .word{display:inline-block;overflow:hidden;vertical-align:bottom}
+.hero h1 .word > span{display:inline-block;transform:translateY(110%)}
+.hero p.lead{
+  margin-top:28px;font-size:clamp(1.02rem,1.4vw,1.22rem);
+  color:rgba(61,43,31,.72);max-width:520px;font-weight:600;
+}
+.hero-cta{margin-top:38px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.hero-note{font-size:.82rem;color:rgba(61,43,31,.5);font-weight:700;margin-top:18px}
+
+.hero-arcs{position:relative;display:flex;justify-content:center;align-items:center}
+.hero-arcs svg{width:min(100%,460px);height:auto;overflow:visible}
+.arc{fill:none;stroke:var(--salvia);stroke-linecap:round;transform-origin:center 100%}
+.hero-heart{
+  position:absolute;left:50%;bottom:8%;transform:translateX(-50%);
+  font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(61,43,31,.45);
+}
+.scroll-hint{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;
+  font-size:.72rem;font-weight:800;letter-spacing:.2em;color:rgba(61,43,31,.45);text-transform:uppercase;
+}
+.scroll-hint .line{width:1px;height:42px;background:rgba(61,43,31,.25);position:relative;overflow:hidden}
+.scroll-hint .line::after{
+  content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;
+  background:var(--salvia);animation:scrollLine 2.2s ease-in-out infinite;
+}
+@keyframes scrollLine{0%{top:-100%}55%{top:100%}100%{top:100%}}
+
+/* ---------- DISTANCE (dark) ---------- */
+.distance{
+  background:var(--verde);color:var(--areia);
+  padding:clamp(110px,15vw,190px) clamp(20px,6vw,80px);
+  position:relative;overflow:hidden;
+}
+.distance .bg-arc{position:absolute;right:-12%;top:-30%;width:60vw;opacity:.06;pointer-events:none}
+.distance-inner{max-width:1080px;margin:0 auto;position:relative;z-index:2}
+.distance .km{
+  font-family:var(--serif);
+  font-size:clamp(4rem,12vw,10.5rem);
+  line-height:.95;letter-spacing:-.02em;color:var(--salvia-soft);
+}
+.distance .km small{font-size:.32em;color:rgba(250,248,245,.55);font-family:var(--sans);font-weight:700;letter-spacing:.06em;margin-left:.2em}
+.distance h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(1.7rem,3.6vw,2.9rem);line-height:1.25;
+  margin-top:38px;max-width:760px;
+}
+.distance h2 em{color:var(--creme);font-style:italic}
+.distance p{margin-top:24px;max-width:560px;color:rgba(250,248,245,.66);font-weight:600;font-size:1.05rem}
+
+/* ---------- CICLO ---------- */
+.ciclo{padding:clamp(110px,14vw,180px) clamp(20px,6vw,80px)}
+.section-head{max-width:1240px;margin:0 auto 64px}
+.eyebrow{
+  font-size:.76rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--salvia);display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.eyebrow::before{content:'';width:30px;height:2px;background:var(--salvia);border-radius:2px}
+.section-head h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(2rem,4.4vw,3.6rem);line-height:1.12;letter-spacing:-.01em;
+  max-width:680px;
+}
+.section-head h2 em{font-style:italic;color:var(--salvia)}
+.section-head p{margin-top:20px;max-width:560px;color:rgba(61,43,31,.66);font-weight:600;font-size:1.05rem}
+
+.ciclo-grid{
+  max-width:1240px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,80px);align-items:center;
+}
+.ciclo-arcs{position:relative;display:flex;justify-content:center}
+.ciclo-arcs svg{width:min(100%,520px);height:auto;overflow:visible}
+.c-arc{fill:none;stroke-linecap:round;cursor:pointer;transition:stroke .35s ease, opacity .35s ease;transform-origin:260px 320px}
+.c-dot{cursor:pointer;transition:r .3s ease}
+.ciclo-people{display:flex;flex-direction:column;gap:14px}
+.person{
+  background:#fff;border-radius:22px;padding:24px 26px;
+  border:2px solid transparent;
+  display:flex;gap:18px;align-items:flex-start;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1), border-color .35s, box-shadow .35s;
+  cursor:pointer;
+}
+.person:hover,.person.active{
+  transform:translateX(8px);
+  border-color:var(--salvia);
+  box-shadow:0 14px 36px rgba(61,43,31,.08);
+}
+.person .avatar{
+  width:52px;height:52px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:1.35rem;color:#fff;
+}
+.person h3{font-size:1.08rem;font-weight:800}
+.person h3 span{
+  font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--salvia);margin-left:10px;
+}
+.person p{font-size:.92rem;color:rgba(61,43,31,.62);font-weight:600;margin-top:4px}
+
+/* ---------- DEMO (pinned WhatsApp) ---------- */
+.demo{background:var(--verde);color:var(--areia);position:relative}
+.demo-pin{
+  min-height:100svh;display:flex;align-items:center;
+  padding:80px clamp(20px,6vw,80px);
+  max-width:1280px;margin:0 auto;width:100%;
+  gap:clamp(40px,6vw,100px);
+}
+.demo-copy{flex:1;min-width:0}
+.demo-copy .eyebrow{color:var(--salvia-soft)}
+.demo-copy h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.14;
+}
+.demo-steps{margin-top:44px;display:flex;flex-direction:column;gap:8px}
+.dstep{
+  padding:20px 22px;border-radius:18px;
+  border:1px solid rgba(250,248,245,.12);
+  opacity:.35;transition:opacity .4s, background .4s, border-color .4s;
+}
+.dstep.on{opacity:1;background:rgba(139,175,138,.12);border-color:rgba(139,175,138,.45)}
+.dstep .n{
+  font-family:var(--serif);font-size:1rem;color:var(--salvia-soft);
+  display:inline-block;margin-right:10px;
+}
+.dstep h4{display:inline;font-size:1.02rem;font-weight:800}
+.dstep p{font-size:.9rem;color:rgba(250,248,245,.62);font-weight:600;margin-top:6px}
+
+.phone{
+  flex-shrink:0;width:min(360px,86vw);
+  background:#10180F;border-radius:44px;padding:14px;
+  box-shadow:0 40px 90px rgba(0,0,0,.45), inset 0 0 0 2px rgba(255,255,255,.06);
+}
+.phone-screen{
+  background:#ECE5DD;border-radius:32px;overflow:hidden;
+  height:600px;display:flex;flex-direction:column;position:relative;
+}
+.phone-head{
+  background:var(--verde-deep);color:#fff;padding:16px 18px;
+  display:flex;align-items:center;gap:12px;
+}
+.phone-head .ph-avatar{
+  width:38px;height:38px;border-radius:50%;background:var(--salvia);
+  display:flex;align-items:center;justify-content:center;
+}
+.phone-head .ph-avatar svg{width:22px;height:14px}
+.phone-head b{font-size:.95rem}
+.phone-head small{display:block;font-size:.72rem;color:var(--salvia-soft);font-weight:700}
+.chat{flex:1;padding:18px 14px;display:flex;flex-direction:column;gap:10px;overflow:hidden;position:relative;z-index:1}
+.bubble{
+  max-width:82%;padding:11px 14px;border-radius:16px;
+  font-size:.88rem;font-weight:600;line-height:1.45;color:#2A2018;
+  opacity:0;transform:translateY(16px) scale(.96);
+  box-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+.bubble.user{align-self:flex-end;background:#D9F2D0;border-bottom-right-radius:4px}
+.bubble.zel{align-self:flex-start;background:#fff;border-bottom-left-radius:4px}
+.bubble .tag{
+  display:inline-block;font-size:.62rem;font-weight:900;letter-spacing:.1em;
+  background:var(--salvia);color:#fff;padding:3px 8px;border-radius:6px;margin-bottom:6px;
+}
+.bubble .vital{
+  margin-top:8px;background:var(--areia);border:1.5px solid var(--salvia-mist);
+  border-radius:12px;padding:10px 12px;font-size:.82rem;
+}
+.bubble .vital b{font-family:var(--serif);font-size:1.3rem;color:var(--cafe);font-weight:400}
+.bubble .confirm-row{display:flex;gap:8px;margin-top:10px}
+.bubble .confirm-row span{
+  flex:1;text-align:center;padding:8px;border-radius:10px;font-size:.78rem;font-weight:800;
+}
+.bubble .confirm-row .yes{background:var(--salvia);color:#fff}
+.bubble .confirm-row .no{background:rgba(61,43,31,.07);color:rgba(61,43,31,.6)}
+.bubble.check{background:#D9F2D0;align-self:flex-end;font-weight:800;border-bottom-right-radius:4px}
+.notif{
+  position:absolute;left:12px;right:12px;z-index:5;
+  background:rgba(255,255,255,.97);border-radius:16px;padding:12px 14px;
+  display:flex;gap:12px;align-items:center;
+  box-shadow:0 12px 30px rgba(0,0,0,.22);
+  opacity:0;transform:translateY(-24px);
+}
+.notif .ic{
+  width:36px;height:36px;border-radius:10px;background:var(--salvia);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.notif .ic svg{width:20px;height:13px}
+.notif b{font-size:.82rem;display:block}
+.notif small{font-size:.74rem;color:rgba(61,43,31,.6);font-weight:600}
+#notif1{top:14px}
+#notif2{top:84px}
+
+/* ---------- FEATURES ---------- */
+.features{padding:clamp(110px,14vw,180px) clamp(20px,6vw,80px)}
+.feat-grid{
+  max-width:1240px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+}
+.feat{
+  background:#fff;border-radius:26px;padding:34px 30px;
+  position:relative;overflow:hidden;
+  border:1px solid rgba(61,43,31,.06);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s;
+}
+.feat::before{
+  content:'';position:absolute;inset:auto -30% -55% auto;width:220px;height:220px;
+  border-radius:50%;background:var(--salvia-mist);opacity:0;
+  transform:scale(.5);transition:opacity .5s, transform .6s ease;
+}
+.feat:hover{transform:translateY(-7px);box-shadow:0 22px 48px rgba(61,43,31,.1)}
+.feat:hover::before{opacity:.55;transform:scale(1)}
+.feat>*{position:relative;z-index:1}
+.feat .fi{
+  width:54px;height:54px;border-radius:16px;background:var(--salvia-mist);
+  display:flex;align-items:center;justify-content:center;margin-bottom:22px;
+  color:var(--verde);transition:background .35s, transform .35s;
+}
+.feat:hover .fi{background:var(--salvia);color:#fff;transform:rotate(-6deg) scale(1.06)}
+.feat .fi svg{width:26px;height:26px}
+.feat h3{font-family:var(--serif);font-weight:400;font-size:1.45rem;margin-bottom:10px}
+.feat p{font-size:.93rem;color:rgba(61,43,31,.64);font-weight:600}
+.feat.feat-wide{grid-column:span 1}
+.feat.feat-em{background:var(--verde);color:var(--areia)}
+.feat.feat-em p{color:rgba(250,248,245,.66)}
+.feat.feat-em .fi{background:rgba(139,175,138,.2);color:var(--salvia-soft)}
+.feat.feat-em:hover .fi{background:var(--salvia);color:#fff}
+.feat.feat-em::before{background:rgba(139,175,138,.25)}
+
+/* ---------- SCREENS (mockups do produto) ---------- */
+.screens{
+  max-width:1240px;margin:96px auto 0;
+  display:grid;grid-template-columns:1.65fr 1fr;
+  gap:clamp(28px,4vw,60px);align-items:end;
+}
+.shot-label{
+  margin-top:20px;font-size:.74rem;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(61,43,31,.45);text-align:center;
+}
+.browser{
+  background:#fff;border-radius:18px;overflow:hidden;
+  box-shadow:0 30px 70px rgba(61,43,31,.14);
+  border:1px solid rgba(61,43,31,.07);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.browser:hover{transform:translateY(-6px) rotate(-.4deg)}
+.chrome{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#F2EEE8;border-bottom:1px solid rgba(61,43,31,.07)}
+.chrome i{width:10px;height:10px;border-radius:50%;display:block}
+.chrome .url{
+  flex:1;margin-left:8px;background:#fff;border-radius:8px;
+  font-size:.68rem;font-weight:700;color:rgba(61,43,31,.5);padding:5px 12px;
+}
+.app-ui{display:flex;min-height:440px;font-size:.72rem;background:#fff}
+.ui-side{
+  width:174px;background:#fff;border-right:1px solid rgba(61,43,31,.08);
+  padding:14px 12px;display:flex;flex-direction:column;gap:2px;flex-shrink:0;
+}
+.ui-logo{display:flex;align-items:center;gap:7px;padding:4px 6px 16px}
+.ui-logo svg{width:26px;height:16px}
+.ui-logo b{font-weight:900;font-size:.95rem;color:var(--cafe);letter-spacing:-.01em}
+.ui-item{
+  padding:8px 10px;border-radius:10px;font-weight:700;font-size:.72rem;
+  color:rgba(61,43,31,.62);display:flex;align-items:center;gap:9px;
+}
+.ui-item svg{width:13px;height:13px;flex-shrink:0;opacity:.7}
+.ui-item.on{background:#E9F1E8;color:var(--salvia-strong)}
+.ui-item.on svg{opacity:1}
+.ui-sep{margin-top:auto}
+.ui-item.danger{color:var(--danger)}
+
+.ui-main{flex:1;background:#FBF9F6;min-width:0;display:flex;flex-direction:column}
+.ui-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 18px;border-bottom:1px solid rgba(61,43,31,.07);background:#fff;
+}
+.ui-topbar .ui-date{font-weight:700;color:rgba(61,43,31,.6);font-size:.7rem}
+.ui-user{display:flex;align-items:center;gap:8px}
+.ui-user .uu-txt{text-align:right;line-height:1.15}
+.ui-user .uu-txt b{font-weight:800;color:var(--cafe);font-size:.72rem;display:block}
+.ui-user .uu-txt span{font-size:.6rem;color:rgba(61,43,31,.5);font-weight:700}
+.ui-user .uu-av{width:26px;height:26px;border-radius:50%;background:#DCE8DB;color:var(--salvia-strong);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.7rem}
+
+.ui-content{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.ui-patient{display:flex;align-items:center;gap:11px}
+.ui-patient .up-av{width:34px;height:34px;border-radius:50%;background:var(--terracota);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:.85rem;flex-shrink:0}
+.ui-patient b{font-weight:800;color:var(--cafe);font-size:.82rem}
+.ui-patient .up-meta{font-size:.6rem;font-weight:700;letter-spacing:.05em;color:rgba(61,43,31,.5);text-transform:uppercase;display:block;margin-top:1px}
+
+.ui-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;align-items:start}
+.ui-hl{font-family:var(--serif);font-weight:400;font-size:1.55rem;line-height:1.08;color:var(--cafe)}
+.ui-hl em{font-style:italic;color:var(--terracota)}
+.ui-hnote{margin-top:10px;font-size:.74rem;font-weight:600;color:rgba(61,43,31,.55);line-height:1.45}
+.ui-emerg{
+  margin-top:13px;display:flex;align-items:center;gap:8px;
+  background:#FBEDE7;border:1px solid rgba(196,132,106,.32);border-radius:12px;
+  padding:10px 12px;font-weight:800;color:var(--ambar);font-size:.72rem;
+}
+.ui-emerg .ue-arrow{margin-left:auto}
+
+.ui-metrics{
+  background:var(--verde);border-radius:16px;padding:15px 17px;
+  display:grid;grid-template-columns:1fr 1fr;gap:15px 14px;
+}
+.um-label{font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;color:var(--salvia-soft);text-transform:uppercase}
+.um-val{font-family:var(--mono);font-size:1.35rem;font-weight:700;color:#fff;line-height:1.1;margin-top:4px}
+.um-val.alert{color:var(--terracota)}
+.um-unit{font-size:.6rem;font-weight:700;color:rgba(250,248,245,.5);margin-top:2px}
+
+.ui-cards{display:grid;grid-template-columns:1.25fr 1fr;gap:12px}
+.ui-block h6{font-family:var(--mono);font-size:.57rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(61,43,31,.45);margin-bottom:8px}
+.ui-urgent{background:#FBEDE7;border:1px solid rgba(196,132,106,.3);border-radius:12px;padding:11px 12px}
+.ui-urgent .uu-tag{font-family:var(--mono);font-size:.55rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--danger)}
+.ui-urgent b{display:block;font-weight:800;color:var(--cafe);margin-top:5px;font-size:.78rem}
+.ui-urgent p{font-size:.67rem;font-weight:600;color:rgba(61,43,31,.55);margin-top:3px;line-height:1.4}
+.ui-urgent .uu-btns{display:flex;gap:7px;margin-top:9px}
+.ui-urgent .uu-btns span{font-size:.66rem;font-weight:800;padding:6px 11px;border-radius:9px}
+.ui-urgent .uu-btns .pri{background:var(--ambar);color:#fff}
+.ui-urgent .uu-btns .sec{background:#fff;color:rgba(61,43,31,.6);border:1px solid rgba(61,43,31,.14)}
+.ui-appt{background:#fff;border:1px solid rgba(61,43,31,.1);border-radius:11px;padding:10px 12px}
+.ui-appt .ua-tag{font-family:var(--mono);font-size:.54rem;font-weight:800;letter-spacing:.1em;color:var(--salvia-strong);text-transform:uppercase}
+.ui-appt b{display:block;font-weight:800;color:var(--cafe);font-size:.74rem;margin-top:4px}
+.ui-appt .ua-when{font-size:.62rem;font-weight:700;color:rgba(61,43,31,.5);margin-top:2px}
+.mshot{
+  width:min(256px,82vw);margin:0 auto;background:#10180F;border-radius:38px;padding:9px;
+  box-shadow:0 26px 60px rgba(61,43,31,.22);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.mshot:hover{transform:translateY(-6px) rotate(.6deg)}
+.mscreen{
+  background:#FBF9F6;border-radius:30px;overflow:hidden;
+  display:flex;flex-direction:column;height:476px;font-size:.68rem;
+}
+.m-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 15px;background:#fff;border-bottom:1px solid rgba(61,43,31,.06);
+}
+.m-burger{display:flex;flex-direction:column;gap:3px}
+.m-burger i{width:15px;height:1.8px;background:rgba(61,43,31,.6);border-radius:2px}
+.m-top .m-logo svg{width:30px;height:18px}
+.m-av{width:26px;height:26px;border-radius:50%;background:#DCE8DB;color:var(--salvia-strong);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.68rem}
+.m-body{flex:1;padding:14px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.m-over{font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.12em;color:rgba(61,43,31,.45);text-transform:uppercase}
+.m-title{font-family:var(--serif);font-weight:400;font-size:1.3rem;color:var(--cafe);margin-top:2px}
+.m-sub{font-size:.65rem;font-weight:700;color:rgba(61,43,31,.5);margin-top:1px}
+.m-prog{background:#fff;border:1px solid rgba(61,43,31,.07);border-radius:16px;padding:13px 14px}
+.mp-lbl{font-family:var(--mono);font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(61,43,31,.45)}
+.mp-num{display:flex;align-items:center;gap:8px;margin-top:5px}
+.mp-num b{font-family:var(--mono);font-size:1.7rem;font-weight:700;color:var(--cafe);line-height:1}
+.mp-num small{font-size:.72rem;font-weight:700;color:rgba(61,43,31,.5)}
+.mp-pill{font-family:var(--mono);font-size:.54rem;font-weight:800;letter-spacing:.05em;color:var(--ambar);background:rgba(196,132,106,.16);padding:4px 8px;border-radius:100px;text-transform:uppercase}
+.mp-cap{font-size:.62rem;font-weight:700;color:rgba(61,43,31,.45);margin-top:4px}
+.mp-bar{height:7px;border-radius:100px;background:rgba(61,43,31,.08);margin-top:8px;overflow:hidden}
+.mp-bar i{display:block;height:100%;width:75%;background:var(--terracota);border-radius:100px}
+.mp-legend{font-size:.6rem;font-weight:700;color:rgba(61,43,31,.5);margin-top:8px}
+.m-sec{font-family:var(--mono);font-size:.55rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ambar)}
+.m-late{background:#FBEDE7;border:1px solid rgba(196,132,106,.32);border-radius:16px;padding:13px 14px}
+.ml-tag{font-family:var(--mono);font-size:.52rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--danger)}
+.ml-name{font-family:var(--serif);font-size:1.15rem;color:var(--cafe);margin-top:5px}
+.ml-dose{font-size:.65rem;font-weight:700;color:rgba(61,43,31,.5)}
+.ml-time{font-family:var(--mono);font-size:.9rem;font-weight:700;color:var(--cafe);margin-top:5px}
+.ml-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--ambar);color:#fff;font-weight:800;font-size:.74rem;padding:11px;border-radius:12px;margin-top:11px}
+.ml-row{display:flex;gap:8px;margin-top:8px}
+.ml-row span{flex:1;text-align:center;font-weight:800;font-size:.7rem;color:rgba(61,43,31,.55);background:#fff;border:1px solid rgba(196,132,106,.3);border-radius:11px;padding:9px}
+.md-list{margin-top:8px;display:flex;flex-direction:column;gap:7px}
+.md-item{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid rgba(61,43,31,.07);border-radius:12px;padding:9px 11px}
+.md-ck{width:16px;height:16px;border-radius:50%;background:var(--salvia);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:900;flex-shrink:0}
+.md-item s{color:rgba(61,43,31,.42);font-weight:700;text-decoration:line-through}
+.md-dots{margin-left:auto;color:rgba(61,43,31,.3);font-weight:900;letter-spacing:1px}
+
+/* ---------- RESUMO MÉDICO (diferencial) ---------- */
+.resumo{
+  background:#F5EFE5;
+  padding:clamp(110px,14vw,180px) clamp(20px,6vw,80px);
+  position:relative;overflow:hidden;
+}
+.resumo-grid{
+  max-width:1240px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);align-items:center;
+}
+.resumo .eyebrow{color:var(--ambar)}
+.resumo .eyebrow::before{background:var(--ambar)}
+.resumo h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.14;letter-spacing:-.01em;
+}
+.resumo h2 em{font-style:italic;color:var(--ambar)}
+.resumo .r-lead{margin-top:22px;color:rgba(61,43,31,.68);font-weight:600;font-size:1.05rem;max-width:520px}
+.r-points{margin-top:30px;display:flex;flex-direction:column;gap:14px}
+.r-point{display:flex;gap:14px;align-items:flex-start}
+.r-point .rp-ic{
+  width:30px;height:30px;border-radius:50%;background:var(--salvia);color:#fff;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;
+}
+.r-point p{font-weight:700;color:var(--cafe);font-size:.97rem;padding-top:3px}
+.r-point p span{display:block;font-weight:600;color:rgba(61,43,31,.58);font-size:.88rem}
+.r-doc{
+  background:#fff;border-radius:24px;padding:32px 34px;
+  box-shadow:0 34px 80px rgba(61,43,31,.16);
+  transform:rotate(.8deg);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1), box-shadow .5s;
+  position:relative;
+}
+.r-doc:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 44px 96px rgba(61,43,31,.2)}
+.r-doc-head{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1.5px solid rgba(61,43,31,.08)}
+.r-doc-head .rd-ic{
+  width:46px;height:46px;border-radius:13px;background:var(--salvia);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.r-doc-head .rd-ic svg{width:26px;height:16px}
+.r-doc-head h4{font-family:var(--serif);font-weight:400;font-size:1.3rem;color:var(--cafe)}
+.r-doc-head small{display:block;font-size:.76rem;font-weight:700;color:rgba(61,43,31,.5)}
+.r-doc-body{padding-top:18px}
+.r-doc-body h6{
+  font-size:.64rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(61,43,31,.42);margin-bottom:10px;
+}
+.r-hl{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:.9rem;font-weight:700;color:var(--cafe)}
+.r-hl i{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.r-hl i.t{background:var(--terracota)}
+.r-hl i.s{background:var(--salvia)}
+.r-hl i.a{background:var(--ambar)}
+.r-doc-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  margin-top:18px;padding-top:18px;border-top:1.5px solid rgba(61,43,31,.08);
+}
+.r-doc-stats div b{font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--cafe);display:block}
+.r-doc-stats div span{font-size:.68rem;font-weight:800;color:rgba(61,43,31,.5)}
+.r-doc-note{
+  margin-top:20px;font-size:.74rem;font-weight:700;color:rgba(61,43,31,.45);
+  display:flex;align-items:center;gap:8px;
+}
+.r-doc-note::before{content:'';width:18px;height:2px;background:var(--salvia);border-radius:2px;flex-shrink:0}
+
+/* seletor de período do Resumo Médico (tela real) */
+.r-sel-over{font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(61,43,31,.4)}
+.r-sel-title{font-family:var(--serif);font-weight:400;font-size:1.55rem;color:var(--cafe);margin-top:4px}
+.r-sel-sub{font-size:.82rem;font-weight:600;color:rgba(61,43,31,.55);margin-top:4px}
+.r-sel-new{display:inline-flex;align-items:center;gap:5px;background:var(--salvia);color:#fff;font-weight:800;font-size:.76rem;padding:9px 15px;border-radius:100px;margin-top:16px;box-shadow:0 4px 12px rgba(139,175,138,.3)}
+.r-periods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.r-per{background:#fff;border:1.5px solid rgba(61,43,31,.1);border-radius:16px;padding:14px 12px}
+.r-per.rec{border-color:var(--salvia);box-shadow:0 8px 20px rgba(139,175,138,.18)}
+.r-per .rp-cal{width:18px;height:18px;color:var(--salvia-strong)}
+.r-per .rp-n{font-family:var(--mono);font-size:1.18rem;font-weight:700;color:var(--cafe);margin-top:12px;line-height:1.1}
+.r-per .rp-d{font-size:.66rem;font-weight:600;color:rgba(61,43,31,.55);margin-top:7px;line-height:1.35;min-height:36px}
+.r-per .rp-tag{display:inline-block;font-family:var(--mono);font-size:.5rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--salvia-strong);background:#E9F1E8;padding:4px 8px;border-radius:7px;margin-top:8px}
+
+/* ---------- VALORES ---------- */
+.valores{
+  background:var(--areia);
+  padding:clamp(100px,12vw,160px) clamp(20px,6vw,80px);
+  border-top:1px solid rgba(61,43,31,.06);
+}
+.valores-inner{max-width:1240px;margin:0 auto}
+.valores .frase{
+  font-size:.78rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(61,43,31,.45);margin-bottom:50px;
+}
+.vword{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(3.4rem,11vw,9.5rem);
+  line-height:1.02;letter-spacing:-.015em;
+  display:block;position:relative;
+  color:rgba(61,43,31,.1);
+  background:linear-gradient(90deg,var(--cafe) 50%,rgba(61,43,31,.1) 50%);
+  background-size:200% 100%;background-position:100% 0;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.vword.salvia{background-image:linear-gradient(90deg,var(--salvia) 50%,rgba(61,43,31,.1) 50%)}
+.vword.terra{background-image:linear-gradient(90deg,var(--terracota) 50%,rgba(61,43,31,.1) 50%)}
+.vword .vdef{
+  position:absolute;left:4px;bottom:-6px;
+  font-family:var(--sans);font-size:clamp(.7rem,1vw,.85rem);font-weight:700;
+  letter-spacing:.04em;color:rgba(61,43,31,.45);
+  -webkit-text-fill-color:rgba(61,43,31,.45);
+  opacity:0;transform:translateY(8px);transition:opacity .4s, transform .4s;
+}
+.vword:hover .vdef{opacity:1;transform:translateY(0)}
+.valores .amar{
+  margin-top:70px;font-family:var(--serif);
+  font-size:clamp(1.5rem,3vw,2.4rem);font-style:italic;color:var(--cafe);
+  max-width:700px;line-height:1.3;
+}
+.valores .amar b{color:var(--salvia);font-weight:400}
+
+/* ---------- CTA ---------- */
+.cta{
+  background:var(--verde);color:var(--areia);
+  padding:clamp(110px,14vw,180px) clamp(20px,6vw,80px);
+  position:relative;overflow:hidden;text-align:center;
+}
+.cta .cta-arcs{position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);width:min(820px,120vw);opacity:.1;pointer-events:none}
+.cta-inner{position:relative;z-index:2;max-width:760px;margin:0 auto}
+.cta h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(2.2rem,5vw,4rem);line-height:1.12;
+}
+.cta h2 em{font-style:italic;color:var(--salvia-soft)}
+.cta p{margin-top:22px;color:rgba(250,248,245,.66);font-weight:600;font-size:1.08rem}
+.cta .hero-cta{justify-content:center}
+
+/* ---------- FOOTER ---------- */
+footer{
+  background:var(--verde-deep);color:rgba(250,248,245,.55);
+  padding:54px clamp(20px,6vw,80px);
+}
+.foot-inner{
+  max-width:1240px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.foot-logo{display:flex;align-items:center;gap:10px}
+.foot-logo svg{width:36px;height:22px}
+.foot-logo span{font-weight:900;font-size:1.2rem;color:var(--areia)}
+footer small{font-size:.8rem;font-weight:600}
+footer .tag{color:var(--salvia-soft);letter-spacing:.18em;font-size:.7rem;font-weight:800}
+
+/* ---------- UTIL / REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(36px)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,.bubble,.notif,.hero h1 .word>span{opacity:1!important;transform:none!important}
+  #preloader{display:none}
+  .scroll-hint{display:none}
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:980px){
+  .screens{grid-template-columns:1fr}
+  .resumo-grid{grid-template-columns:1fr}
+  .ui-side{width:128px}
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-arcs{order:-1}
+  .hero-arcs svg{width:min(70%,320px)}
+  .ciclo-grid{grid-template-columns:1fr}
+  .demo-pin{flex-direction:column;justify-content:center;gap:44px;padding-top:110px;padding-bottom:110px}
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .nav-links a{display:none}
+}
+@media (max-width:600px){
+  .feat-grid{grid-template-columns:1fr}
+  .phone-screen{height:520px}
+  .hero{padding-top:120px}
+  .ui-hero{grid-template-columns:1fr}
+  .ui-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader" aria-hidden="true">
+  <svg viewBox="0 0 200 110">
+    <path class="pl-arc" d="M 12 104 A 88 88 0 0 1 188 104" stroke="#8BAF8A" stroke-width="17" fill="none" stroke-linecap="round"/>
+    <path class="pl-arc" d="M 42 104 A 58 58 0 0 1 158 104" stroke="#8BAF8A" stroke-width="17" fill="none" stroke-linecap="round" opacity=".55"/>
+    <path class="pl-arc" d="M 72 104 A 28 28 0 0 1 128 104" stroke="#8BAF8A" stroke-width="17" fill="none" stroke-linecap="round" opacity=".25"/>
+  </svg>
+  <div class="pl-word">zel's</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav" aria-label="Principal">
+  <a class="nav-logo" href="#" aria-label="zel's — início">
+    <svg viewBox="0 0 200 110" aria-hidden="true">
+      <path d="M 12 104 A 88 88 0 0 1 188 104" stroke="#8BAF8A" stroke-width="20" fill="none" stroke-linecap="round"/>
+      <path d="M 42 104 A 58 58 0 0 1 158 104" stroke="#8BAF8A" stroke-width="20" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M 72 104 A 28 28 0 0 1 128 104" stroke="#8BAF8A" stroke-width="20" fill="none" stroke-linecap="round" opacity=".25"/>
+    </svg>
+    <span>zel's</span>
+  </a>
+  <div class="nav-links">
+    <a href="#ciclo">O ciclo</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#valores">Valores</a>
+    <a href="https://app.zels.com.br/login">Entrar</a>
+    <a class="btn" href="https://app.zels.com.br/cadastro">Começar a cuidar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">saúde com cuidado</div>
+      <h1 id="heroTitle">Amar é ter <em>cuidado</em>, <em>zelo</em>.</h1>
+      <p class="lead reveal">O Zel's coordena o cuidado de quem você ama — entre família, cuidadores e a própria pessoa. Medicamentos, consultas, sintomas e rotina, num só lugar. Mesmo à distância.</p>
+      <div class="hero-cta reveal">
+        <a class="btn" href="https://app.zels.com.br/cadastro">Começar a cuidar</a>
+        <a class="btn btn-ghost" href="#como-funciona">Ver como funciona</a>
+      </div>
+      <p class="hero-note reveal">Feito para famílias brasileiras. Simples para quem é cuidado, completo para quem cuida.</p>
+    </div>
+    <div class="hero-arcs" aria-hidden="true">
+      <svg viewBox="0 0 460 260">
+        <path class="arc arc-1" d="M 30 240 A 200 200 0 0 1 430 240" stroke-width="34"/>
+        <path class="arc arc-2" d="M 96 240 A 134 134 0 0 1 364 240" stroke-width="34" opacity=".55"/>
+        <path class="arc arc-3" d="M 162 240 A 68 68 0 0 1 298 240" stroke-width="34" opacity=".25"/>
+      </svg>
+      <span class="hero-heart">cuidado que se irradia</span>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><span>role</span><span class="line"></span></div>
+</header>
+
+<!-- DISTANCE -->
+<section class="distance">
+  <svg class="bg-arc" viewBox="0 0 460 260" aria-hidden="true">
+    <path d="M 30 240 A 200 200 0 0 1 430 240" stroke="#FAF8F5" stroke-width="30" fill="none" stroke-linecap="round"/>
+    <path d="M 96 240 A 134 134 0 0 1 364 240" stroke="#FAF8F5" stroke-width="30" fill="none" stroke-linecap="round"/>
+  </svg>
+  <div class="distance-inner">
+    <div class="km reveal"><span id="kmCount">0</span><small>km de distância</small></div>
+    <h2 class="reveal">É o que separa Ana do pai dela, José. Mas quando ele toma o remédio das oito, <em>ela fica sabendo na hora.</em></h2>
+    <p class="reveal">A vida moderna espalhou as famílias pelo mapa. O Zel's existe para que a distância física nunca vire distância de cuidado.</p>
+  </div>
+</section>
+
+<!-- CICLO -->
+<section class="ciclo" id="ciclo">
+  <div class="section-head">
+    <div class="eyebrow reveal">o ciclo de cuidado</div>
+    <h2 class="reveal">Cada arco é <em>uma pessoa</em> que cuida.</h2>
+    <p class="reveal">O símbolo do Zel's é o mapa do próprio produto: camadas de cuidado que se irradiam ao redor de quem é cuidado. Passe o mouse sobre os arcos.</p>
+  </div>
+  <div class="ciclo-grid">
+    <div class="ciclo-arcs reveal" role="img" aria-label="Diagrama dos arcos: José no centro, cercado pelas camadas de cuidado de Cleide, Rafael e Ana">
+      <svg viewBox="0 0 520 360">
+        <path class="c-arc" id="arcAna" data-p="ana" d="M 40 320 A 220 220 0 0 1 480 320" stroke="#8BAF8A" stroke-width="36"/>
+        <path class="c-arc" id="arcRafael" data-p="rafael" d="M 112 320 A 148 148 0 0 1 408 320" stroke="#8BAF8A" stroke-width="36" opacity=".55"/>
+        <path class="c-arc" id="arcCleide" data-p="cleide" d="M 184 320 A 76 76 0 0 1 336 320" stroke="#8BAF8A" stroke-width="36" opacity=".25"/>
+        <circle class="c-dot" id="dotJose" data-p="jose" cx="260" cy="320" r="22" fill="#C4846A"/>
+        <text x="260" y="326" text-anchor="middle" font-family="DM Serif Display" font-size="20" fill="#fff" pointer-events="none">J</text>
+      </svg>
+    </div>
+    <div class="ciclo-people">
+      <article class="person reveal" data-p="jose" tabindex="0">
+        <div class="avatar" style="background:#C4846A">J</div>
+        <div>
+          <h3>José, 81<span>quem é cuidado</span></h3>
+          <p>No centro de tudo. Registra como se sente pelo WhatsApp, do jeito que fala — sem aprender aplicativo nenhum.</p>
+        </div>
+      </article>
+      <article class="person reveal" data-p="cleide" tabindex="0">
+        <div class="avatar" style="background:#8BAF8A">C</div>
+        <div>
+          <h3>Dona Cleide<span>cuidadora</span></h3>
+          <p>O cuidado mais próximo. Segue o checklist do dia, confirma medicamentos e registra a rotina com poucos toques.</p>
+        </div>
+      </article>
+      <article class="person reveal" data-p="rafael" tabindex="0">
+        <div class="avatar" style="background:#7CA17B">R</div>
+        <div>
+          <h3>Rafael<span>curador</span></h3>
+          <p>O filho que organiza. Gerencia medicamentos, agenda e permissões — e aprova o que entra na ficha do pai.</p>
+        </div>
+      </article>
+      <article class="person reveal" data-p="ana" tabindex="0">
+        <div class="avatar" style="background:#9B5A42">A</div>
+        <div>
+          <h3>Ana<span>familiar à distância</span></h3>
+          <p>O abraço de longe. Acompanha tudo em tempo real e propõe registros — porque cuidar também é estar presente.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="demo" id="como-funciona">
+  <div class="demo-pin" id="demoPin">
+    <div class="demo-copy">
+      <div class="eyebrow">como funciona</div>
+      <h2>José só precisa <em style="color:var(--salvia-soft)">mandar uma mensagem.</em></h2>
+      <div class="demo-steps">
+        <div class="dstep" data-step="1"><span class="n">1.</span><h4>Ele fala do jeito dele</h4><p>"Minha pressão deu 15 por 9." Sem formulário, sem menu, sem senha. Só uma mensagem no WhatsApp.</p></div>
+        <div class="dstep" data-step="2"><span class="n">2.</span><h4>O Zel's entende</h4><p>A inteligência do Zel's interpreta a fala e transforma em um registro de saúde estruturado — pressão arterial 150/90.</p></div>
+        <div class="dstep" data-step="3"><span class="n">3.</span><h4>José confirma</h4><p>Nada é salvo automaticamente. José sempre confirma antes — porque a saúde é dele.</p></div>
+        <div class="dstep" data-step="4"><span class="n">4.</span><h4>A família fica sabendo</h4><p>Rafael e Ana recebem o registro na hora, a quilômetros de distância. É assim que o zelo viaja.</p></div>
+      </div>
+    </div>
+    <div class="phone" aria-label="Demonstração da conversa de José com o Zel's no WhatsApp">
+      <div class="phone-screen">
+        <div class="notif" id="notif1">
+          <div class="ic"><svg viewBox="0 0 200 110"><path d="M 12 104 A 88 88 0 0 1 188 104" stroke="#fff" stroke-width="22" fill="none" stroke-linecap="round"/><path d="M 52 104 A 48 48 0 0 1 148 104" stroke="#fff" stroke-width="22" fill="none" stroke-linecap="round" opacity=".5"/></svg></div>
+          <div><b>Zel's · para Rafael</b><small>Novo registro do seu pai: pressão 150/90</small></div>
+        </div>
+        <div class="notif" id="notif2">
+          <div class="ic" style="background:#9B5A42"><svg viewBox="0 0 200 110"><path d="M 12 104 A 88 88 0 0 1 188 104" stroke="#fff" stroke-width="22" fill="none" stroke-linecap="round"/><path d="M 52 104 A 48 48 0 0 1 148 104" stroke="#fff" stroke-width="22" fill="none" stroke-linecap="round" opacity=".5"/></svg></div>
+          <div><b>Zel's · para Ana</b><small>Seu pai registrou a pressão agora há pouco 💚</small></div>
+        </div>
+        <div class="phone-head">
+          <div class="ph-avatar"><svg viewBox="0 0 200 110"><path d="M 12 104 A 88 88 0 0 1 188 104" stroke="#fff" stroke-width="24" fill="none" stroke-linecap="round"/><path d="M 56 104 A 44 44 0 0 1 144 104" stroke="#fff" stroke-width="24" fill="none" stroke-linecap="round" opacity=".5"/></svg></div>
+          <div><b>Zel's</b><small>saúde com cuidado</small></div>
+        </div>
+        <div class="chat">
+          <div class="bubble user" id="b1">Minha pressão deu 15 por 9 hoje de manhã</div>
+          <div class="bubble zel" id="b2">
+            <span class="tag">SINAL VITAL</span><br>
+            Entendi, seu José! Identifiquei uma medição de pressão arterial:
+            <div class="vital"><b>150 / 90</b> &nbsp;mmHg · hoje, 08:12</div>
+            Deseja registrar na sua ficha de saúde?
+            <div class="confirm-row"><span class="yes">Sim, registrar</span><span class="no">Não</span></div>
+          </div>
+          <div class="bubble check" id="b3">Sim ✓</div>
+          <div class="bubble zel" id="b4">Registrado com cuidado 💚 Rafael e Ana já podem acompanhar. Qualquer coisa, é só me chamar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="recursos">
+  <div class="section-head">
+    <div class="eyebrow reveal">tudo num só lugar</div>
+    <h2 class="reveal">A rotina de cuidado, <em>organizada com carinho.</em></h2>
+    <p class="reveal">Cada recurso do Zel's nasceu de um momento real do cuidado — do remédio das oito à consulta do mês que vem.</p>
+  </div>
+  <div class="feat-grid">
+    <article class="feat reveal">
+      <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4" transform="rotate(-45 12 12)"/><line x1="8.5" y1="15.5" x2="15.5" y2="8.5"/></svg></div>
+      <h3>Medicamentos</h3>
+      <p>Rotina de remédios com horários, registro de cada tomada e alerta de tomada atrasada. Ninguém mais esquece a Losartana das oito.</p>
+    </article>
+    <article class="feat reveal">
+      <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><circle cx="12" cy="15.5" r="2"/></svg></div>
+      <h3>Agenda inteligente</h3>
+      <p>Consultas e exames sincronizados: marcou um exame na agenda, ele já aparece no histórico clínico. Sem digitar duas vezes.</p>
+    </article>
+    <article class="feat reveal">
+      <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11"/></svg></div>
+      <h3>Checklist do cuidador</h3>
+      <p>A rotina do dia, passo a passo, com horário e registro de quem fez o quê. Tranquilidade para a família, clareza para quem cuida.</p>
+    </article>
+    <article class="feat reveal feat-em">
+      <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg></div>
+      <h3>Ficha de emergência</h3>
+      <p>Tipo sanguíneo, condições, medicamentos e contatos — em uma tela só, em menos de um segundo. Porque em emergência, ninguém navega.</p>
+    </article>
+    <article class="feat reveal">
+      <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div>
+      <h3>Resumo médico</h3>
+      <p>Antes da consulta, o Zel's consolida sintomas, medições e medicamentos do período em um resumo claro para mostrar ao médico.</p>
+    </article>
+    <article class="feat reveal">
+      <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16.5 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18.5 14.4c2 .9 3 2.7 3 5.6"/></svg></div>
+      <h3>Permissões em níveis</h3>
+      <p>Cada pessoa vê e faz só o que deve: gestão total, propor com aprovação ou somente leitura. Cuidado também é privacidade.</p>
+    </article>
+  </div>
+
+  <div class="screens">
+    <div class="reveal">
+      <div class="browser" aria-label="Tela do Zel's na web: painel do curador, com o dia de José pedindo atenção, métricas e itens urgentes">
+        <div class="chrome">
+          <i style="background:#E8A199"></i><i style="background:#E8C5A0"></i><i style="background:#AFC9AE"></i>
+          <span class="url">app.zels.com.br/dashboard</span>
+        </div>
+        <div class="app-ui">
+          <aside class="ui-side" aria-hidden="true">
+            <div class="ui-logo">
+              <svg viewBox="0 0 200 110"><path d="M 12 104 A 88 88 0 0 1 188 104" stroke="#8BAF8A" stroke-width="22" fill="none" stroke-linecap="round"/><path d="M 52 104 A 48 48 0 0 1 148 104" stroke="#8BAF8A" stroke-width="22" fill="none" stroke-linecap="round" opacity=".45"/></svg>
+              <b>zel's</b>
+            </div>
+            <div class="ui-item on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Painel</div>
+            <div class="ui-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4" transform="rotate(-45 12 12)"/><line x1="8.5" y1="15.5" x2="15.5" y2="8.5"/></svg>Medicamentos</div>
+            <div class="ui-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Saúde</div>
+            <div class="ui-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>Condições</div>
+            <div class="ui-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5.2 9a1 1 0 0 0 .9 1.5h14.6a1 1 0 0 0 .9-1.5L15 9V3"/><line x1="8.5" y1="3" x2="15.5" y2="3"/></svg>Exames</div>
+            <div class="ui-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>Agenda</div>
+            <div class="ui-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Checklist</div>
+            <div class="ui-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Ciclo</div>
+            <div class="ui-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>Resumo médico</div>
+            <div class="ui-item danger ui-sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>Emergência</div>
+          </aside>
+          <div class="ui-main" aria-hidden="true">
+            <div class="ui-topbar">
+              <span class="ui-date">Segunda-feira, 29 de junho</span>
+              <div class="ui-user">
+                <span class="uu-txt"><b>Rafa</b><span>Curador</span></span>
+                <span class="uu-av">R</span>
+              </div>
+            </div>
+            <div class="ui-content">
+              <div class="ui-patient">
+                <span class="up-av">Jd</span>
+                <div><b>José da Silva</b><span class="up-meta">Pessoa cuidada · 81 anos</span></div>
+              </div>
+              <div class="ui-hero">
+                <div>
+                  <div class="ui-hl">O dia de José está <em>pedindo atenção</em></div>
+                  <p class="ui-hnote">Manhã em andamento. 4 doses de medicamento ainda não administradas.</p>
+                  <div class="ui-emerg">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
+                    Ficha rápida de emergência <span class="ue-arrow">Abrir →</span>
+                  </div>
+                </div>
+                <div class="ui-metrics">
+                  <div><div class="um-label">Meds hoje</div><div class="um-val alert">0/4</div><div class="um-unit">4 atrasadas</div></div>
+                  <div><div class="um-label">Pressão 7D</div><div class="um-val">-- / --</div><div class="um-unit">mmHg</div></div>
+                  <div><div class="um-label">Glicemia</div><div class="um-val">—</div><div class="um-unit">mg/dL</div></div>
+                  <div><div class="um-label">Freq. cardíaca</div><div class="um-val">—</div><div class="um-unit">bpm</div></div>
+                </div>
+              </div>
+              <div class="ui-cards">
+                <div class="ui-block">
+                  <h6>Atenção · 5 itens</h6>
+                  <div class="ui-urgent">
+                    <span class="uu-tag">Urgente · há 15h</span>
+                    <b>Metformina não foi tomada</b>
+                    <p>Dose de 850mg agendada para 07:30 ainda não foi registrada.</p>
+                    <div class="uu-btns"><span class="pri">Ver detalhes</span><span class="sec">Dispensar</span></div>
+                  </div>
+                </div>
+                <div class="ui-block">
+                  <h6>Próximos compromissos</h6>
+                  <div class="ui-appt">
+                    <span class="ua-tag">Consulta</span>
+                    <b>Cardiologista</b>
+                    <div class="ua-when">qua, 8 jul · 15h</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="shot-label">Painel do curador · web</p>
+    </div>
+    <div class="reveal">
+      <div class="mshot" aria-label="Tela do Zel's no celular: medicamentos do dia, com a dose atrasada em destaque para resolver na hora">
+        <div class="mscreen" aria-hidden="true">
+          <div class="m-top">
+            <span class="m-burger"><i></i><i></i><i></i></span>
+            <span class="m-logo"><svg viewBox="0 0 200 110"><path d="M 12 104 A 88 88 0 0 1 188 104" stroke="#8BAF8A" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M 42 104 A 58 58 0 0 1 158 104" stroke="#8BAF8A" stroke-width="20" fill="none" stroke-linecap="round" opacity=".55"/><path d="M 72 104 A 28 28 0 0 1 128 104" stroke="#8BAF8A" stroke-width="20" fill="none" stroke-linecap="round" opacity=".25"/></svg></span>
+            <span class="m-av">R</span>
+          </div>
+          <div class="m-body">
+            <div>
+              <div class="m-over">José da Silva</div>
+              <div class="m-title">Medicamentos</div>
+              <div class="m-sub">29 de junho de 2026</div>
+            </div>
+            <div class="m-prog">
+              <div class="mp-lbl">Dia em andamento</div>
+              <div class="mp-num"><b>3</b><small>de 4</small><span class="mp-pill">1 atrasada</span></div>
+              <div class="mp-cap">administradas</div>
+              <div class="mp-bar"><i></i></div>
+              <div class="mp-legend">✓ 3 tomadas · ⚠ 1 atrasada · ◌ 0 pendentes</div>
+            </div>
+            <div>
+              <div class="m-sec">Atrasada · resolver agora</div>
+              <div class="m-late" style="margin-top:7px">
+                <div class="ml-tag">Atrasada · há 3h · previsto às 19:30</div>
+                <div class="ml-name">Metformina</div>
+                <div class="ml-dose">850mg</div>
+                <div class="ml-time">19:30</div>
+                <div class="ml-btn">✓ Administrei agora</div>
+                <div class="ml-row"><span>Pulei</span><span>Esqueci</span></div>
+              </div>
+            </div>
+            <div>
+              <div class="m-sec" style="color:rgba(61,43,31,.45)">Administradas hoje · 3</div>
+              <div class="md-list">
+                <div class="md-item"><span class="md-ck">✓</span><s>Metformina</s><span class="md-dots">···</span></div>
+                <div class="md-item"><span class="md-ck">✓</span><s>Losartana Potássica</s><span class="md-dots">···</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="shot-label">A rotina no bolso · mobile</p>
+    </div>
+  </div>
+</section>
+<!-- RESUMO MÉDICO (diferencial) -->
+<section class="resumo" id="resumo-medico">
+  <div class="resumo-grid">
+    <div>
+      <div class="eyebrow reveal">o nosso diferencial</div>
+      <h2 class="reveal">A consulta dura 15 minutos. <em>Chegue com tudo na mão.</em></h2>
+      <p class="r-lead reveal">No consultório, a família tenta lembrar: quantas vezes ele teve tontura? A pressão subiu quando? Qual a dose mesmo? O Zel's consolida tudo o que aconteceu no período em um Resumo Médico claro — pronto para mostrar ao médico.</p>
+      <div class="r-points">
+        <div class="r-point reveal"><span class="rp-ic">✓</span><p>Tudo do período, agrupado<span>Sintomas recorrentes, medições fora do esperado, medicamentos em uso e exames recentes — em uma página só.</span></p></div>
+        <div class="r-point reveal"><span class="rp-ic">✓</span><p>Linguagem simples, sem jargão<span>Escrito para a família entender e o médico aproveitar. Sem diagnóstico: o Zel's organiza, quem decide é o profissional.</span></p></div>
+        <div class="r-point reveal"><span class="rp-ic">✓</span><p>Gerado em segundos<span>Escolha o período — 7, 30 ou 90 dias — e leve no celular ou impresso. A consulta rende mais quando a memória não falha.</span></p></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="r-doc" aria-label="Tela de Resumo Médico do Zel's: seleção de período — 7, 30 ou 90 dias">
+        <div class="r-sel-over">José da Silva</div>
+        <div class="r-sel-title">Resumo Médico</div>
+        <div class="r-sel-sub">Selecione o período ou crie um novo resumo</div>
+        <span class="r-sel-new">+ Novo resumo</span>
+        <div class="r-periods">
+          <div class="r-per">
+            <svg class="rp-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+            <div class="rp-n">7 dias</div>
+            <div class="rp-d">Registros recentes e sinais vitais</div>
+            <span class="rp-tag">Rápido</span>
+          </div>
+          <div class="r-per rec">
+            <svg class="rp-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+            <div class="rp-n">30 dias</div>
+            <div class="rp-d">Visão mensal completa · recomendado para consultas</div>
+            <span class="rp-tag">Recomendado</span>
+          </div>
+          <div class="r-per">
+            <svg class="rp-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+            <div class="rp-n">90 dias</div>
+            <div class="rp-d">Histórico trimestral</div>
+            <span class="rp-tag">Trimestral</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALORES -->
+<section class="valores" id="valores">
+  <div class="valores-inner">
+    <p class="frase reveal">o que nos move</p>
+    <span class="vword" id="v1">cuidado<span class="vdef">— estar atento antes que precise</span></span>
+    <span class="vword salvia" id="v2">zelo<span class="vdef">— a origem do nosso nome</span></span>
+    <span class="vword terra" id="v3">carinho<span class="vdef">— presente em cada detalhe</span></span>
+    <span class="vword" id="v4">amor<span class="vdef">— a razão de tudo isso</span></span>
+    <p class="amar reveal">"Amar é ter <b>cuidado</b>, <b>zelo</b>." — e tecnologia, quando bem usada, é só uma forma nova de amar de perto.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="comecar">
+  <svg class="cta-arcs" viewBox="0 0 460 260" aria-hidden="true">
+    <path d="M 30 240 A 200 200 0 0 1 430 240" stroke="#8BAF8A" stroke-width="34" fill="none" stroke-linecap="round"/>
+    <path d="M 96 240 A 134 134 0 0 1 364 240" stroke="#8BAF8A" stroke-width="34" fill="none" stroke-linecap="round" opacity=".55"/>
+    <path d="M 162 240 A 68 68 0 0 1 298 240" stroke="#8BAF8A" stroke-width="34" fill="none" stroke-linecap="round" opacity=".25"/>
+  </svg>
+  <div class="cta-inner">
+    <div class="eyebrow reveal" style="justify-content:center;color:var(--salvia-soft)">comece hoje</div>
+    <h2 class="reveal">Cuide de perto, <em>mesmo de longe.</em></h2>
+    <p class="reveal">Crie o perfil de saúde de quem você ama, convide a família e a cuidadora, e transforme distância em presença.</p>
+    <div class="hero-cta reveal" style="margin-top:40px">
+      <a class="btn" href="https://app.zels.com.br/cadastro">Criar conta gratuita</a>
+      <a class="btn btn-ghost" style="color:var(--areia);box-shadow:inset 0 0 0 2px rgba(250,248,245,.25)" href="#como-funciona">Rever como funciona</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">
+      <svg viewBox="0 0 200 110" aria-hidden="true">
+        <path d="M 12 104 A 88 88 0 0 1 188 104" stroke="#8BAF8A" stroke-width="20" fill="none" stroke-linecap="round"/>
+        <path d="M 42 104 A 58 58 0 0 1 158 104" stroke="#8BAF8A" stroke-width="20" fill="none" stroke-linecap="round" opacity=".55"/>
+        <path d="M 72 104 A 28 28 0 0 1 128 104" stroke="#8BAF8A" stroke-width="20" fill="none" stroke-linecap="round" opacity=".25"/>
+      </svg>
+      <span>zel's</span>
+    </div>
+    <small>O Zel's organiza informações de saúde. Não realiza diagnóstico nem substitui orientação médica.</small>
+    <span class="tag">SAÚDE COM CUIDADO · 2026</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasGSAP = typeof gsap !== 'undefined';
+
+  /* ---------- NAV scroll state ---------- */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, {passive:true});
+
+  /* ---------- Split hero title into words ---------- */
+  const h1 = document.getElementById('heroTitle');
+  if (!reduced) {
+    const frag = document.createDocumentFragment();
+    h1.childNodes.forEach(node => {
+      const isEm = node.nodeName === 'EM';
+      const text = node.textContent;
+      text.split(/(\s+)/).forEach(part => {
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+        if (!part) return;
+        const w = document.createElement('span'); w.className = 'word';
+        const inner = document.createElement('span'); inner.textContent = part;
+        if (isEm) inner.style.fontStyle = 'italic', inner.style.color = 'var(--salvia)';
+        w.appendChild(inner); frag.appendChild(w);
+      });
+    });
+    h1.innerHTML = ''; h1.appendChild(frag);
+  }
+
+  if (!hasGSAP || reduced) {
+    document.getElementById('preloader').style.display = 'none';
+    document.querySelectorAll('.bubble').forEach(b => { b.style.opacity = 1; b.style.transform = 'none'; });
+    document.querySelectorAll('.notif').forEach(n => { n.style.opacity = 1; n.style.transform = 'none'; });
+    document.querySelectorAll('.dstep').forEach(d => d.classList.add('on'));
+    document.querySelectorAll('.vword').forEach(v => v.style.backgroundPosition = '0% 0');
+    const km = document.getElementById('kmCount'); if (km) km.textContent = '934';
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- PRELOADER: arcs draw themselves ---------- */
+  const plArcs = document.querySelectorAll('#preloader .pl-arc');
+  plArcs.forEach(a => {
+    const len = a.getTotalLength();
+    a.style.strokeDasharray = len;
+    a.style.strokeDashoffset = len;
+  });
+  const intro = gsap.timeline();
+  intro
+    .to(plArcs, { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut', stagger: 0.16 })
+    .to('#preloader .pl-word', { opacity: 1, duration: .5 }, '-=.4')
+    .to('#preloader', { yPercent: -100, duration: .9, ease: 'power3.inOut', delay: .35 })
+    .set('#preloader', { display: 'none' });
+
+  /* ---------- HERO entrance ---------- */
+  intro
+    .from('.hero h1 .word > span', { yPercent: 110, duration: .9, ease: 'power3.out', stagger: .055 }, '-=.55')
+    .to('.hero .reveal', { opacity: 1, y: 0, duration: .8, ease: 'power2.out', stagger: .12 }, '-=.5')
+    .from('nav', { y: -24, opacity: 0, duration: .7, ease: 'power2.out' }, '-=.7');
+
+  /* ---------- Breathing arcs (heartbeat-slow) ---------- */
+  gsap.utils.toArray('.hero-arcs .arc').forEach((arc, i) => {
+    gsap.to(arc, {
+      scale: 1.035, transformOrigin: '50% 100%',
+      duration: 2.6, ease: 'sine.inOut',
+      repeat: -1, yoyo: true, delay: i * .35
+    });
+    gsap.to(arc, {
+      opacity: '+=0.08', duration: 2.6, ease: 'sine.inOut',
+      repeat: -1, yoyo: true, delay: i * .35
+    });
+  });
+
+  /* ---------- Generic scroll reveals ---------- */
+  gsap.utils.toArray('.reveal').forEach(el => {
+    if (el.closest('.hero')) return; // hero handled by intro
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: .9, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 86%' }
+    });
+  });
+
+  /* ---------- KM counter ---------- */
+  const km = { v: 0 };
+  gsap.to(km, {
+    v: 934, duration: 2, ease: 'power2.out',
+    scrollTrigger: { trigger: '.distance', start: 'top 70%' },
+    onUpdate: () => document.getElementById('kmCount').textContent = Math.round(km.v)
+  });
+
+  /* ---------- Ciclo: arcs <-> people sync ---------- */
+  const map = { jose: 'dotJose', cleide: 'arcCleide', rafael: 'arcRafael', ana: 'arcAna' };
+  const persons = document.querySelectorAll('.person');
+  function highlight(p, on) {
+    persons.forEach(card => card.classList.toggle('active', on && card.dataset.p === p));
+    const el = document.getElementById(map[p]);
+    if (!el) return;
+    if (el.tagName === 'circle') {
+      gsap.to(el, { attr: { r: on ? 28 : 22 }, duration: .35, ease: 'back.out(2)' });
+    } else {
+      gsap.to(el, { scale: on ? 1.04 : 1, opacity: on ? 1 : el.id === 'arcRafael' ? .55 : el.id === 'arcCleide' ? .25 : 1, duration: .35, ease: 'power2.out' });
+      if (on) gsap.to(el, { stroke: '#7CA17B', duration: .3 });
+      else gsap.to(el, { stroke: '#8BAF8A', duration: .3 });
+    }
+  }
+  document.querySelectorAll('[data-p]').forEach(el => {
+    const p = el.dataset.p;
+    el.addEventListener('mouseenter', () => highlight(p, true));
+    el.addEventListener('mouseleave', () => highlight(p, false));
+    el.addEventListener('focus', () => highlight(p, true));
+    el.addEventListener('blur', () => highlight(p, false));
+  });
+
+  /* ---------- DEMO: pinned WhatsApp story ---------- */
+  const steps = document.querySelectorAll('.dstep');
+  const setStep = n => steps.forEach(s => s.classList.toggle('on', +s.dataset.step <= n));
+
+  const demo = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.demo', start: 'top top', end: '+=2600',
+      pin: '#demoPin', scrub: .6,
+      onLeaveBack: () => setStep(0)
+    }
+  });
+  demo
+    .call(() => setStep(1))
+    .to('#b1', { opacity: 1, y: 0, scale: 1, duration: .6, ease: 'back.out(1.4)' })
+    .to({}, { duration: .4 })
+    .call(() => setStep(2))
+    .to('#b2', { opacity: 1, y: 0, scale: 1, duration: .7, ease: 'back.out(1.4)' })
+    .to({}, { duration: .5 })
+    .call(() => setStep(3))
+    .to('#b3', { opacity: 1, y: 0, scale: 1, duration: .5, ease: 'back.out(1.6)' })
+    .to('#b4', { opacity: 1, y: 0, scale: 1, duration: .6, ease: 'back.out(1.4)' }, '+=.3')
+    .to({}, { duration: .4 })
+    .call(() => setStep(4))
+    .to('#notif1', { opacity: 1, y: 0, duration: .6, ease: 'power3.out' })
+    .to('#notif2', { opacity: 1, y: 0, duration: .6, ease: 'power3.out' }, '+=.25')
+    .to({}, { duration: .8 });
+
+  /* ---------- Valores: words fill on scroll ---------- */
+  gsap.utils.toArray('.vword').forEach(w => {
+    gsap.to(w, {
+      backgroundPosition: '0% 0', ease: 'none',
+      scrollTrigger: { trigger: w, start: 'top 82%', end: 'top 40%', scrub: true }
+    });
+  });
+
+  /* ---------- THREE.JS: soft floating particles in hero ---------- */
+  try {
+    const canvas = document.getElementById('particles');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, 1, .1, 100);
+    camera.position.z = 14;
+
+    const N = 140;
+    const positions = new Float32Array(N * 3);
+    const speeds = [];
+    for (let i = 0; i < N; i++) {
+      positions[i*3]   = (Math.random() - .5) * 30;
+      positions[i*3+1] = (Math.random() - .5) * 18;
+      positions[i*3+2] = (Math.random() - .5) * 8;
+      speeds.push(.15 + Math.random() * .35);
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    // soft round sprite drawn on the fly
+    const c = document.createElement('canvas'); c.width = c.height = 64;
+    const ctx = c.getContext('2d');
+    const g = ctx.createRadialGradient(32,32,0,32,32,32);
+    g.addColorStop(0,'rgba(139,175,138,.9)');
+    g.addColorStop(.5,'rgba(139,175,138,.35)');
+    g.addColorStop(1,'rgba(139,175,138,0)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,64,64);
+    const tex = new THREE.CanvasTexture(c);
+
+    const mat = new THREE.PointsMaterial({
+      size: .55, map: tex, transparent: true, opacity: .55,
+      depthWrite: false, blending: THREE.AdditiveBlending
+    });
+    const points = new THREE.Points(geo, mat);
+    scene.add(points);
+
+    let mx = 0, my = 0;
+    window.addEventListener('mousemove', e => {
+      mx = (e.clientX / window.innerWidth - .5);
+      my = (e.clientY / window.innerHeight - .5);
+    }, {passive:true});
+
+    function resize() {
+      const hero = document.querySelector('.hero');
+      const w = hero.clientWidth, h = hero.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const clock = new THREE.Clock();
+    let heroVisible = true;
+    new IntersectionObserver(en => heroVisible = en[0].isIntersecting)
+      .observe(document.querySelector('.hero'));
+
+    (function tick() {
+      requestAnimationFrame(tick);
+      if (!heroVisible) return;
+      const dt = clock.getDelta();
+      const pos = geo.attributes.position.array;
+      for (let i = 0; i < N; i++) {
+        pos[i*3+1] += speeds[i] * dt;            // float upward like warm air
+        pos[i*3]   += Math.sin(clock.elapsedTime * .4 + i) * .002;
+        if (pos[i*3+1] > 10) pos[i*3+1] = -10;   // recycle
+      }
+      geo.attributes.position.needsUpdate = true;
+      points.rotation.y += (mx * .12 - points.rotation.y) * .04;  // gentle parallax
+      points.rotation.x += (my * .08 - points.rotation.x) * .04;
+      renderer.render(scene, camera);
+    })();
+  } catch(e) { /* three.js optional: page works without it */ }
+})();
+</script>
+</body>
+</html>
